@@ -1,0 +1,23 @@
+{
+  "name": "utils-js",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hchiba1/utils-js.git"
+  },
+  "keywords": [],
+  "author": "Hirokazu Chiba",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hchiba1/utils-js/issues"
+  },
+  "homepage": "https://github.com/hchiba1/utils-js#readme",
+  "devDependencies": {
+    "commander": "^6.2.1"
+  }
+}
