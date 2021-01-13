@@ -18,6 +18,8 @@
   },
   "homepage": "https://github.com/hchiba1/utils-js#readme",
   "devDependencies": {
-    "commander": "^6.2.1"
+    "columnify": "^1.5.4",
+    "commander": "^6.2.1",
+    "csv-parse": "^4.14.2"
   }
 }
