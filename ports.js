@@ -5,6 +5,8 @@ const columnify = require('columnify');
 const csvParse = require('csv-parse/lib/sync');
 
 const commander = require('commander')
+  .option('-c, --align_column', 'align output columns')
+  .option('-v, --verbose', 'show header line')
   .arguments('[keyword]');
 
 commander.parse(process.argv);
@@ -17,7 +19,10 @@ let headers = results.shift().trim()
   .replace(/ Address/, 'Address')
   .split(/ +/);
 
-let tsv = headers.join('\t') + '\n';
+let tsv = '';
+if (commander.verbose) {
+  tsv = headers.join('\t') + '\n'
+}
 
 results.forEach((line) => {
   if (keywords && line.match(keywords[0])) {
@@ -35,9 +40,12 @@ results.forEach((line) => {
   }
 });
 
-tsv = columnify(csvParse(tsv, { columns: true, delimiter: '\t', relax: true }), {
-  showHeaders: true,
-  headingTransform: (x) => x
-}).replace(/\s+$/gm, '');
-
-console.log(tsv);
+if (commander.align_column) {
+  tsv = columnify(csvParse(tsv, { columns: Boolean(commander.verbose), delimiter: '\t', relax: true }), {
+    showHeaders: Boolean(commander.verbose),
+    headingTransform: (x) => x
+  }).replace(/\s+$/gm, '');
+  console.log(tsv);
+} else {
+  process.stdout.write(tsv);
+}
