@@ -22,6 +22,11 @@ let tsv = headers.join('\t') + '\n';
 results.forEach((line) => {
   if (keywords && line.match(keywords[0])) {
     fields = line.trim().split(/ +/);
+    fields[4] = fields[4].replace(/.*:/, '');
+    fields[5] = fields[5].replace(/.*:/, '');
+    if (fields[6]) {
+      fields[6] = fields[6].replace(/^users:\(\("(.*)",pid=(\d+).*\)\)$/, '$1($2)');
+    }
     const length_diff = headers.length - fields.length;
     tsv += fields.join('\t');
     for (let i = 0; i < length_diff; i++) {
