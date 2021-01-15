@@ -27,9 +27,8 @@ results.forEach((line) => {
     if (fields[6]) {
       fields[6] = fields[6].replace(/^users:\(\("(.*)",pid=(\d+).*\)\)$/, '$1($2)');
     }
-    const length_diff = headers.length - fields.length;
     tsv += fields.join('\t');
-    for (let i = 0; i < length_diff; i++) {
+    for (let i = 0; i < headers.length - fields.length; i++) {
       tsv += '\t';
     }
     tsv += '\n';
