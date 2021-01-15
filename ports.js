@@ -21,7 +21,7 @@ results.forEach((line) => {
   fields = line.trim().split(/ +/);
   const length_diff = headers.length - fields.length;
   tsv += fields.join('\t');
-  if (length_diff) {
+  for (let i = 0; i < length_diff; i++) {
     tsv += '\t';
   }
   tsv += '\n';
