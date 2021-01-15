@@ -9,6 +9,8 @@ const commander = require('commander')
 
 commander.parse(process.argv);
 
+const keywords = commander.args
+
 let results = child_process.execSync('ss -atunp').toString().trim().split('\n');
 let headers = results.shift().trim()
   .replace(/ Address/, 'Address')
@@ -18,13 +20,15 @@ let headers = results.shift().trim()
 let tsv = headers.join('\t') + '\n';
 
 results.forEach((line) => {
-  fields = line.trim().split(/ +/);
-  const length_diff = headers.length - fields.length;
-  tsv += fields.join('\t');
-  for (let i = 0; i < length_diff; i++) {
-    tsv += '\t';
+  if (keywords && line.match(keywords[0])) {
+    fields = line.trim().split(/ +/);
+    const length_diff = headers.length - fields.length;
+    tsv += fields.join('\t');
+    for (let i = 0; i < length_diff; i++) {
+      tsv += '\t';
+    }
+    tsv += '\n';
   }
-  tsv += '\n';
 });
 
 tsv = columnify(csvParse(tsv, { columns: true, delimiter: '\t', relax: true }), {
